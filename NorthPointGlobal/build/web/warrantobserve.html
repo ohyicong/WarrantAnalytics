@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>North point global</title>
+        
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.2"> </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+        <script src="./Controllers/WarrantObserveController.js"></script>
+        <script src="./Scripts/Chart.min.js"></script>
+        <script src="./Scripts/angular-chart.js"></script>
+        <script src="./Scripts/angular-chart.min.js"></script>
+        
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body ng-app="warrantObserveApp" ng-controller="warrantObserveController">
+         <div class="w3-top w3-margin-bottom">
+            <div class="w3-bar w3-black w3-card">
+                <h5 class="w3-left w3-margin-left">{{"Sensitivity: "+sensitivity}}</h5>
+                <h5 class="w3-right w3-margin-right">Warrant analytics</h5>
+            </div>
+        </div>
+        <div class="w3-row-margin"></div>
+        <div class="w3-content w3-container" style="max-width:2000px;margin-top:46px">
+            <div class="w3-container w3-half w3-left w3-white" style="height:800px;overflow-y: auto;">
+                <h3>Original Dataset</h3>
+                <table class="w3-table w3-striped">
+                    <tr class="w3-blue">
+                        <th>Underlying bid</th>
+                        <th>Warrant bid</th>
+                        <th>Warrant ask</th>
+                        <th>Underlying ask</th>
+                        <th>Time</th>
+                    </tr>
+                    <tr ng-repeat="originalData in originalDatas|orderBy:'-underlyingBid'">
+                        <td>{{originalData.underlyingBid|number:2}}</td>
+                        <td>{{originalData.warrantBid|number:3}}</td>
+                        <td>{{originalData.warrantAsk|number:3}}</td>
+                        <td>{{originalData.underlyingAsk|number:2}}</td>
+                        <td>{{originalData.time}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="w3-container w3-half w3-right w3-white" style="height:800px;overflow-y: auto;">
+                <h3>Predicted Dataset</h3>
+                <table class="w3-table w3-striped">
+                    <tr class="w3-green">
+                        <th>Underlying bid</th>
+                        <th>Warrant bid</th>
+                        <th>Warrant ask</th>
+                        <th>Underlying ask</th>
+                    </tr>
+                    <tr ng-repeat="(key,predictedData) in predictedUnderlyingBidDatas track by $index">
+                        <td>{{predictedData|number:2}}</td>
+                        <td>{{predictedWarrantBidDatas[key]|number:3}}</td>
+                        <td>{{predictedWarrantAskDatas[key]|number:3}}</td>
+                        <td>{{predictedUnderlyingAskDatas[key]|number:2}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="w3-display-middle" ng-show="!isDone">
+                
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                <p>Loading..</p>
+            </div>
+        </div>
+    </body>
+</html>

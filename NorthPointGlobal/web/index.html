@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>North point global</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+        <script src="./Controllers/WarrantController.js"></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <style>
+        tr:hover{
+            background-color:lightblue;
+            color:white;
+        }
+        
+    </style>    
+    <body ng-app="warrantApp" ng-controller="warrantController" background="./Img/background.jpg" ng-init="getAllWarrantSettings()">
+        <div class="w3-top w3-margin-bottom">
+            <div class="w3-bar w3-black w3-card">
+                <a class="w3-bar-item w3-button w3-padding-large" ng-click="onHome()">Home</a>
+                <a class="w3-bar-item w3-button w3-padding-large" ng-click="onSubscribe()">Subscribe</a>
+                <a class="w3-bar-item w3-button w3-padding-large">Others</a>
+                <h5 class="w3-right w3-margin-right">Warrant analytics</h5>
+            </div>
+        </div>
+        <div class="w3-content w3-container" style="max-width:2000px;margin-top:46px">
+             <div class="w3-container w3-half w3-display-middle w3-gray" ng-show="pages[0]">
+                <center>
+                    <h3 style="color:white"><i>Watch List</i></h3>
+                    <hr style="color:white">
+                    <table class="w3-table w3-margin-bottom w3-white">
+                        <tr class="w3-teal"><th>Name</th><th>Code</th><th colspan="2">Sensitivity</th></tr>
+                        <tr ng-repeat="warrantSettings in allWarrantSettings">
+                            <td ng-click="onClick(warrantSettings.warrantName,warrantSettings.warrantCode)">{{warrantSettings.warrantName}}</td>
+                            <td ng-click="onClick(warrantSettings.warrantName,warrantSettings.warrantCode)">{{warrantSettings.warrantCode}}</td>
+                            <td ng-click="onClick(warrantSettings.warrantName,warrantSettings.warrantCode)">{{warrantSettings.sensitivity}}</td>
+                            <td>
+                                <i class="fa fa-close" ng-click="onRemove(warrantSettings.warrantName,warrantSettings.warrantCode,warrantSettings.sensitivity)"></i>
+                            </td>
+                        </tr>   
+                    </table>
+                       
+                    
+                </center>
+            </div>
+            <div class="w3-container w3-half w3-display-middle w3-gray" ng-show="pages[1]">
+                <center>
+                    <h3 style="color:white"><i>Subscribe Warrant</i></h3>
+                    <hr style="color:white">
+                    <input type="text" placeholder="Warrant name..." ng-model="warrantName" class="w3-margin-top w3-margin-bottom w3-input">
+                    <input type="text" placeholder="Warrant code..." ng-model="warrantCode" class="w3-margin-top w3-margin-bottom w3-input">
+                    <input type="number" placeholder="Sensitivity..." ng-model="sensitivity" class="w3-margin-top w3-margin-bottom w3-input">
+                    <input type="button" value="Add" ng-click="onAdd()" class="w3-margin-top w3-margin-bottom w3-button w3-blue">
+                </center>
+            </div>
+           
+            
+        </div>    
+    </body>
+</html>
